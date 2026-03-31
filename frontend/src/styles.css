@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+
+ /* Definir la fuente global de Bootstrap */
+:root {
+  --bs-body-font-family: 'Roboto', sans-serif;
+  --bs-body-font-weight: 400;
+  --maestre-color: rgb(61, 98, 207); /* Color personalizado */
+}
+
+/* Estilos personalizados */
+ .transition {
+  transition: transform 0.5s ease;
+}
+.transition:hover {
+  transform: scale(1.1);
+  }
+
+ ul, footer{
+    background-color:var(--maestre-color);
+ }
