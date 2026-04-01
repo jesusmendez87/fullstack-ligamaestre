@@ -18,8 +18,8 @@ jobs:
           npm install
           npm run build
           npm  npm run test -- --watch=false --browsers=ChromeHeadless
-          npm run cypress:run -- --headless
-
+          npx cypress run --headless
+          
   backend:
     runs-on: ubuntu-latest
     name: Install and Test Backend
