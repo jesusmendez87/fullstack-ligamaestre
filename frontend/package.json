@@ -21,7 +21,7 @@
           "parser": "angular"
         }
       }
-    ] 
+    ]
   },
   "private": true,
   "dependencies": {
@@ -49,6 +49,7 @@
     "@angular/compiler-cli": "^20.3.0",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.17.19",
     "cypress": "^15.13.0",
     "jasmine-core": "~5.9.0",
