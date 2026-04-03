@@ -11,6 +11,6 @@ export class IUser implements IUser {
     public _id: string,
     public name: string,
     public rol: string,
-   
+
   ) {}
 }
