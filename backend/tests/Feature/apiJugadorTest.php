@@ -1,21 +1,19 @@
 <?php
 use App\Models\Jugador;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
-use Tests\TestCase;
-
-class ApiJugadorTest  extends TestCase
+class ApiJugadorTest extends TestCase
 {
-    use MakesHttpRequests;
+    use RefreshDatabase;
 
-
-    public function testApiRespondeCorrectamente()
+    public function test_api_responde_correctamente()
     {
-        $response = $this->get('/api/jugadores');
+        $response = $this->getJson('/api/jugadores');
 
         $response->assertStatus(200);
     }
+
 
 
     public function testMuestraElJugadorId1()
