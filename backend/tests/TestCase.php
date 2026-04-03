@@ -18,5 +18,3 @@ public function test_calculo_dorsal_valido()
 
     $this->assertTrue($resultado);
 }
-
-}
