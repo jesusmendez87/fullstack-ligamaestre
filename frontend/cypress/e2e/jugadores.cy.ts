@@ -50,7 +50,7 @@ afterEach(() => {
   });
 
   // CASO 3: error controlado (contraseñas distintas)
-  it.only('debe mostrar error si las contraseñas no coinciden', () => {
+  it('debe mostrar error si las contraseñas no coinciden', () => {
 
     cy.visit('https://fullstack-ligamaestre-1.onrender.com/registro');
 
