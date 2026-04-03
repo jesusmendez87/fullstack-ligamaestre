@@ -1,5 +1,6 @@
 <?php
 use App\Models\Jugador;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
 use Tests\TestCase;
