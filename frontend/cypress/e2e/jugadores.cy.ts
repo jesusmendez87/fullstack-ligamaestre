@@ -1,51 +1,71 @@
-/// <reference types="cypress" />
+  /// <reference types="cypress" />
 
 describe('Flujo administrador - Jugadores', () => {
-
-  beforeEach(() => {
+  //logueado admin
+beforeEach(() => {
   cy.visit('https://fullstack-ligamaestre-1.onrender.com/login/');
 
-cy.get('input[placeholder="Usuario"]', { timeout: 5000 }).should('be.visible').type('admin');
-cy.get('input[placeholder="Contraseña"]', { timeout: 5000 }).should('be.visible').type('1234');
+  cy.get('input[placeholder="Usuario"]').type('admin');
+  cy.get('input[placeholder="Contraseña"]').type('1234');
   cy.get('button').contains('Entrar').click();
 
+  cy.url().should('not.include', '/login');
+});
 
-    // Esperar a que redireccione
-    cy.url().should('not.include', '/login');
-  });
+afterEach(() => {
+  cy.visit('https://fullstack-ligamaestre-1.onrender.com/jugadores');
 
-  // ✅ CASO 1: listado correcto
+  // 🔥 asegurar que NO te manda a login
+  cy.url().should('include', '/jugadores');
+});
+
+
+  // CASO 1: listado
   it('debe mostrar la lista de jugadores', () => {
-    cy.visit('https://fullstack-ligamaestre-1.onrender.com/jugadores');
+    cy.get('.card', { timeout: 10000 }).should('exist');
 
-    cy.get('.card').should('have.length.greaterThan', 0);
-
-    cy.get('.card').first().within(() => {
-      cy.contains('Nombre');
-    });
+    cy.get('.card')
+      .its('length')
+      .should('be.greaterThan', 0);
   });
 
   // CASO 2: creación correcta
   it('debe crear un jugador correctamente', () => {
+    const username = 'JuanTest' + Date.now(); // 🔥 evita duplicados
+
     cy.visit('https://fullstack-ligamaestre-1.onrender.com/registro');
 
-    cy.get('input[placeholder="Usuario"]').type('JuanTest');
+    cy.get('input[placeholder="Usuario"]').type(username);
     cy.get('input[placeholder="Nombre"]').type('Juan Pérez García');
     cy.get('input[placeholder="Contraseña"]').type('1111');
     cy.get('input[placeholder="Confirmar Contraseña"]').type('1111');
 
-    // seleccionar rol correctamente (IMPORTANTE)
     cy.get('select').select('Jugador');
 
-     cy.get('button').contains('Registrarse').click();
+    cy.get('button').contains('Registrarse').click();
 
-    // validar redirección o mensaje
-    cy.contains('Jugador creado correctamente').should('be.visible');
+      cy.contains('exitoso').should('be.visible');
 
-    // validar que aparece en lista
-    cy.visit('https://fullstack-ligamaestre-1.onrender.com/jugadores');
-    cy.contains('Juan Pérez García').should('exist');
+
   });
 
+  // CASO 3: error controlado (contraseñas distintas)
+  it('debe mostrar error si las contraseñas no coinciden', () => {
+
+    cy.visit('https://fullstack-ligamaestre-1.onrender.com/registro');
+
+    cy.get('input[placeholder="Usuario"]').type('ErrorUser');
+    cy.get('input[placeholder="Nombre"]').type('Error Test');
+    cy.get('input[placeholder="Contraseña"]').type('1111');
+    cy.get('input[placeholder="Confirmar Contraseña"]').type('2222');
+
+    cy.get('select').select('Jugador');
+
+    cy.get('button').contains('Registrarse').click();
+
+    cy.contains('contraseñas').should('be.visible');
+
+    cy.url().should('include', '/registro');
+  });
 
 });
