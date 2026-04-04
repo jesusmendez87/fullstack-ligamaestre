@@ -21,12 +21,12 @@ describe('VerUsuarioService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it('verifica creación del servicio', () => {
     expect(service).toBeTruthy();
   });
 
   describe('getUsersByRole', () => {
-    it('should return users filtered by role', () => {
+    it('verifica que se devuelvan usuarios filtrados por rol', () => {
       const rol = 'jugador';
 
       const mockUsers: IUser[] = [
@@ -61,4 +61,9 @@ describe('VerUsuarioService', () => {
       req.flush(mockUsers);
     });
   });
+
+
+
+
+
 });

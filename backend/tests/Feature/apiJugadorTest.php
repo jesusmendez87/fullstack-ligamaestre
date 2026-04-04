@@ -30,4 +30,14 @@ class ApiJugadorTest extends TestCase
             'nombre' => $jugador1->nombre
         ]);
     }
+
+    public function testDestroyJugador()
+    {
+        $jugador = Jugador::factory()->create();
+
+        $response = $this->delete("/api/jugadores/{$jugador->id}");
+
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('jugadors', ['id' => $jugador->id]);
+    }
 }
