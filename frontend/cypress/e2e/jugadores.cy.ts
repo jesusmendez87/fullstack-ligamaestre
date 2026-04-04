@@ -15,7 +15,7 @@ beforeEach(() => {
 afterEach(() => {
   cy.visit('https://fullstack-ligamaestre-1.onrender.com/jugadores');
 
-  // 🔥 asegurar que NO te manda a login
+  // asegurar que NO te manda a login
   cy.url().should('include', '/jugadores');
 });
 
