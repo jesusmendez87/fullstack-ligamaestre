@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 // servicio para registrar usuarios
 export class Register {
-  private apiUrl = environment.apiUrl + '/api/register';
+  private apiUrl = environment.apiUrl + '/api/jugadores';
 
   constructor(private http: HttpClient) {}
 

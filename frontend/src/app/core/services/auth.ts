@@ -1,3 +1,5 @@
+
+import { authInterceptor } from './../../interceptors/auth-interceptor';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -12,7 +14,7 @@ export interface User {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = environment.apiUrl + '/api/login'; 
+  private apiUrl = environment.apiUrl + '/api/login';
 
  private currentUserSubject = new BehaviorSubject<User | null>(
   (() => {
@@ -67,13 +69,22 @@ setCurrentUser(user: User | null, token?: string) {
     return this.currentUserSubject.value;
   }
 
-    getCurrentUserid(): string | null {
+  getCurrentUserid(): string | null {
     return this.getCurrentUser()?._id ?? null;
   }
 
-  isLoggedIn(): boolean {
-    return !!this.currentUserSubject.value;
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
+
+ isLoggedIn(): boolean {
+
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return !!localStorage.getItem('token');
+}
 
   logout() {
     this.setCurrentUser(null);

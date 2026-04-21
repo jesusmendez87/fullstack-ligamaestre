@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Club extends Model
 {
     use HasFactory;
-    protected $table = 'clubs';
+
+    protected $collection = 'equipos';
+    protected $connection = 'mongodb';
     protected $fillable = [
-        'nombre',
-        'ciudad',
-        'categoria',
+        'name',
+        'city',
+        'category',
+        'players',
+        'sport',
     ];
 
     /**

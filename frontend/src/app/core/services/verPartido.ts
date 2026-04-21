@@ -6,10 +6,11 @@ import { environment } from '../../../environments/environment';
 
 //exportamos las interfaces para usarlas en los componentes
 export interface partido {
-  arbitro_id: string;
-  deporte: string;
-  local_id: string;
-  visitante_id: string;
+  _id?: string;
+  liga_id: number;
+  resultado: string;
+    club_Local_Id: number;
+  club_Visitante_Id: number;
 }
  export interface IActaEvento {
   jugador: string;   // nombre del jugador
@@ -42,10 +43,16 @@ export class VerPartido {
 
   }
 
-  getPartidos(): Observable<Ipartido[]> {
-const token = localStorage.getItem('token'); // JWT
+getPartidos(): Observable<Ipartido[]> {
+  const token = localStorage.getItem('token');
+
+ console.log('ENVIANDO TOKEN:', token);
+
   return this.http.get<Ipartido[]>(this.apiUrl, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: {
+           Authorization: `Bearer ${localStorage.getItem('token')}`
+
+    }
   });
 }
 }

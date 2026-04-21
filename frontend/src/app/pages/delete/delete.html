@@ -52,7 +52,7 @@
           [(ngModel)]="partidoId">
     <option value="" disabled>-- Eliminar Equipo --</option>
     <option *ngFor="let p of partidos" [value]="p._id">
-      {{ p._id }}
+      {{ p.club_Local_Id}} vs {{ p.club_Visitante_Id }}
     </option>
   </select>
 
@@ -62,6 +62,6 @@
     Eliminar Partido
   </button>
 
-  
+
 </div>
 

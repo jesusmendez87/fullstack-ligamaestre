@@ -1,14 +1,13 @@
 <div class="container">
   <div class="row">
-     
-<div class="card col-lg-3 col-md-5 col-sm-12 m-3 bg-light" *ngFor="let a of actas"  >
+
+<div class="card col-lg-3 col-md-5 col-sm-12 m-3 bg-light" *ngFor="let jugador of jugadores"  >
   <img src = "/assets/img/person.jpg" class="card-img-top img-thubnails" alt="jugador" >
 
-<h5 class="card-title">{{a.jugador}}</h5>
-    <p class="card-text"><strong>Tiempo:</strong> {{a.minuto}}</p>
-    <p class="card-text"><strong>Anotación:</strong> {{ a.tipo }}</p>
+<h5 class="card-title">{{jugador.name}}</h5>
+    <p class="card-text"><strong>Nombre:</strong> {{jugador.username}}</p>
+    <p class="card-text"><strong>Rol:</strong> {{ jugador.rol }}</p>
   </div>
 </div>
 </div>
 
- 

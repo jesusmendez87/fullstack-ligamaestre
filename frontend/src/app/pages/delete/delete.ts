@@ -28,7 +28,7 @@ export class Delete implements OnInit {
   jugadorId: string = '';
   arbitroId: string = '';
   equipoId: string = '';
-  partidoId: string  = '';
+  partidoId:  any;
 
   constructor(
     private userService: userService,
@@ -103,6 +103,7 @@ eliminarUsuario(id: string) {
   }  
 
     eliminarPartidos(id: string) {
+        console.log('ID enviado:', id); // 👈 añade esto
     this.deleteService.delete('partidos', id).subscribe({
       next: () => {
         console.log('Partido eliminado');

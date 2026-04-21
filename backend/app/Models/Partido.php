@@ -2,28 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use MongoDB\Laravel\Eloquent\Model;
 
 class Partido extends Model
 {
-    protected $table = 'partidos';
+    protected $collection = 'partidos';
+    protected $connection = 'mongodb';
 
     protected $fillable = [
-        'club_local_id',
-        'club_visitante_id',
+        'local_id',
+        'visitante_id',
         'liga_id',
+        'arbitro_id',
+        'lugar_id',
         'fecha',
         'resultado',
     ];
 
     public function clubLocal()
     {
-        return $this->belongsTo(Club::class, 'club_local_id'); // Relación con el club local
+        return $this->belongsTo(Club::class, 'local_id'); // Relación con el club local
     }
 
     public function clubVisitante()
     {
-        return $this->belongsTo(Club::class, 'club_visitante_id'); // Relación con el club visitante
+        return $this->belongsTo(Club::class, 'visitante_id'); // Relación con el club visitante
     }
 
     public function liga()

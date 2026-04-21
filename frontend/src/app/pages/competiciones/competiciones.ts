@@ -11,7 +11,6 @@ import { IUser } from '../../core/models/user.model';
 
 
 
-
 @Component({
   selector: 'app-competiciones',
   standalone: true,

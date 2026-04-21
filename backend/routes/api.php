@@ -3,31 +3,32 @@
 use App\Http\Controllers\Api\LigaController;
 use App\Http\Controllers\Api\JugadorController;
 use App\Http\Controllers\Api\PartidoController;
+use App\Http\Controllers\Api\ClubController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 
-// no vistas, solo API
-//Route::apiResource('ligas', LigaController::class);
-//Route::apiResource('clubs', ClubController::class);
-//Route::apiResource('jugadores', JugadorController::class);
-
-Route::get('ligas', [LigaController::class, 'index']);
-Route::get('ligas/{id}', [LigaController::class, 'show']);
-Route::get('jugadores', [JugadorController::class, 'index']);
-Route::get('jugadores/{id}', [JugadorController::class, 'show']);
-Route::get('partidos', [App\Http\Controllers\Api\PartidoController::class, 'index']);
-Route::get('partidos/{id}', [App\Http\Controllers\Api\PartidoController::class, 'show']);
-    // deshabilitar middleware admin para probar desde postman
-   // Route::middleware(['auth', 'admin'])->group(function () {
-Route::post('ligas', [LigaController::class, 'store']);
+// Cambia ->name('login') por ->name('api.login')
+Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 Route::post('jugadores', [JugadorController::class, 'store']);
-Route::post('partidos', [PartidoController::class, 'store']);
 
-Route::delete('ligas/{id}', [LigaController::class, 'destroy']);
-Route::delete('jugadores/{id}', [JugadorController::class, 'destroy']);
-Route::delete('partidos/{id}', [PartidoController::class, 'destroy']);
+Route::middleware('auth:api')->group(function () {
 
-Route::put('ligas/{id}', [LigaController::class, 'update']);
-Route::put('jugadores/{id}', [JugadorController::class, 'update']);
-Route::put('partidos/{id}', [PartidoController::class, 'update']);
+    Route::get('partidos', [PartidoController::class, 'index']);
+    Route::get('jugadores', [JugadorController::class, 'index']);
+    Route::get('ligas', [LigaController::class, 'index']);
+    Route::get('equipos', [ClubController::class, 'index']);
+    Route::addRoute(['put', 'patch'], 'jugadores/{id}', [JugadorController::class, 'update']);route::addRoute(['put', 'patch'], 'partidos/{id}', [PartidoController::class, 'update']);
+    Route::addRoute(['put', 'patch'], 'ligas/{id}', [LigaController::class, 'update']);
+    Route::addRoute(['put', 'patch'], 'equipos/{id}', [ClubController::class, 'update']);
+    Route::post('partido', [PartidoController::class, 'store']);
+    Route::post('ligas', [LigaController::class, 'store']);
+    Route::post('equipos', [ClubController::class, 'store']);
 
-    //});
+    Route::delete('/delete/jugadores/{id}', [JugadorController::class, 'destroy']); 
+    Route::delete('/delete/usuarios/{id}', [PartidoController::class, 'destroy']);
+    Route::delete('/delete/ligas/{id}', [LigaController::class, 'destroy']);
+    Route::delete('/delete/equipos/{id}', [ClubController::class, 'destroy']);
+    Route::delete('/delete/partidos/{id}', [PartidoController::class, 'destroy']);      
+    
+
+});

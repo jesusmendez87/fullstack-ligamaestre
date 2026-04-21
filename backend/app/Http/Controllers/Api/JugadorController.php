@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jugador;
 
+use function Pest\Laravel\json;
+
 class JugadorController extends Controller
 {
     /**
@@ -16,9 +18,7 @@ class JugadorController extends Controller
         return Jugador::all();
     }
 
-       public function create() {
-            return view('jugadores.exito');
-        }
+
 
     /**
      * Store a newly created resource in storage.
@@ -26,15 +26,15 @@ class JugadorController extends Controller
     public function store(Request $request)
     {
         $validated =  $request->validate([
-            'nombre' => 'required|string|max:50',
-            'posicion' => 'required|string|max:50',
-            'dorsal' => 'required|integer|min:1|max:99',
-            'club_id' => 'required|exists:clubs,id',
+            'username' => 'required|string|max:50',
+            'password' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
+            'rol' => 'required|string|in:arbitro,jugador',
+
         ]);
 
           $jugador = Jugador::create($validated);
-          return view('jugador.exito', compact('jugador'));
-    }
+          return response()->json($jugador, 201);    }
 
     /**
      * Display the specified resource.

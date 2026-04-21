@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-            clubes::class,
+            clubs::class,
             ligas::class,
-            jugadores::class,
+            jugadors::class,
             partidos::class,
         ]);
 

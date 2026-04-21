@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
-    ],
+   'defaults' => [
+    'guard' => 'api', // 👈 IMPORTANTE
+    'passwords' => 'jugadores',
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -36,11 +36,16 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'jugadores',
     ],
+
+    'api' => [
+        'driver' => 'jwt',
+        'provider' => 'jugadores',
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,17 +64,15 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    'providers' => [
+    'jugadores' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Jugador::class,
     ],
+],
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -89,15 +92,18 @@ return [
     | quickly generating a very large amount of password reset tokens.
     |
     */
-
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+'passwords' => [
+    'jugadores' => [
+        'provider' => 'jugadores',
+        'table' => 'password_reset_tokens',
+        'expire' => 60,
+        'throttle' => 60,
     ],
+
+
+
+    ],
+
 
     /*
     |--------------------------------------------------------------------------

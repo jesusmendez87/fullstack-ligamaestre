@@ -21,19 +21,26 @@
     @endif
 
     <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" class="form-control" value="{{ old('nombre', $club->nombre ?? '') }}">
+        <label for="name" class="form-label">Nombre:</label>
+        <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $club->name ?? '') }}">
     </div>
 
     <div class="mb-3">
-        <label for="ciudad" class="form-label">Ciudad:</label>
-        <input type="text" id="ciudad" name="ciudad" class="form-control" value="{{ old('ciudad', $club->ciudad ?? '') }}">
+        <label for="city" class="form-label">Ciudad:</label>
+        <input type="text" id="city" name="city" class="form-control" value="{{ old('city', $club->city ?? '') }}">
     </div>
 
     <div class="mb-3">
-        <label for="categoria" class="form-label">Categoría:</label>
-        <input type="text" id="categoria" name="categoria" class="form-control" value="{{ old('categoria', $club->categoria ?? '') }}">
+        <label for="category" class="form-label">Categoría:</label>
+        <input type="text" id="category" name="category" class="form-control" value="{{ old('category', $club->category ?? '') }}">
     </div>
+
+
+        <div class="mb-3">
+        <label for="sport" class="form-label">Deporte:</label>
+        <input type="text" id="sport" name="sport" class="form-control" value="{{ old('sport', $club->sport ?? '') }}">
+    </div>
+
 
     <button type="submit" class="btn btn-primary">{{ $editando ? 'Actualizar Club' : 'Crear Club' }}</button>
 </form>

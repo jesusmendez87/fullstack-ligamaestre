@@ -1,12 +1,11 @@
 import { IActaEvento, IResultado } from './../services/verPartido';
 export interface Ipartido {
-  _id: string;
-  local_id: string;
-  visitante_id: string;
-  arbitro_id: object;
+  _id?: string;
+  club_Local_Id: number;
+  club_Visitante_Id: number;
+  liga_id: number;
   resultado: IResultado;
-  deporte: string;
+
   acta?: IActaEvento[]
  }
 
- 

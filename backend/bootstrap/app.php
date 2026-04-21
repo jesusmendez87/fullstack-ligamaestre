@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AdminMiddleware;
+use Illuminate\Http\Request;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,10 +15,23 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) : void {
-        $middleware->alias([
-            'admin' => App\Http\Middleware\AdminMiddleware::class,
-        ]);
-    })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        //
-    })->create();
+    // Añade esta línea:
+    $middleware->api(prepend: [
+        \Illuminate\Http\Middleware\HandleCors::class,
+    ]);
+
+    $middleware->alias([
+        'admin' => App\Http\Middleware\AdminMiddleware::class,
+    ]);
+})
+->withExceptions(function (Exceptions $exceptions) {
+    $exceptions->shouldRenderJsonWhen(function ($request, $e) {
+        if ($request->is('api/*')) {
+            return true;
+        }
+        return $request->expectsJson();
+    });
+
+})->create();
+;
+

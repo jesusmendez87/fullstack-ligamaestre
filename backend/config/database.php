@@ -31,6 +31,13 @@ return [
 
     'connections' => [
 
+    'mongodb' => [
+    'driver' => 'mongodb',
+    'dsn' => env('MONGO_URI'),
+    'database' => env('DB_DATABASE', 'ligaDeportiva'),
+],
+
+
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),

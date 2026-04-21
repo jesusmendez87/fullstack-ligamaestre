@@ -49,7 +49,7 @@ describe('Jugadores', () => {
 
     it('Debe contener al jugador Pedro', () => {
 
-    const mockData = [
+    const mock2Data = [
       { acta: [{ jugador: 'Juan' }, { jugador: 'Pedro' }] }
     ];
 
