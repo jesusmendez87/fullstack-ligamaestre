@@ -11,7 +11,7 @@
     <option value="" disabled selected>-- Elige un Equipo --</option>
 
     <!-- Iteramos sobre 'equipos' -->
-    <option *ngFor="let nameEquipo of equipo" [value]="nameEquipo._id">
+    <option *ngFor="let nameEquipo of equipo" [value]="nameEquipo.id">
       {{ nameEquipo.name }}
     </option>
   </select>
@@ -20,7 +20,7 @@
   <select [(ngModel)]="visitante_id" (change)="cargarEquipos()" id="equipo2" class="form-select">
     <option value="" disabled selected>-- Elige un Equipo --</option>
 
-    <option *ngFor="let nameEquipo of equipo" [value]="nameEquipo._id">
+    <option *ngFor="let nameEquipo of equipo" [value]="nameEquipo.id">
 
       {{ nameEquipo.name }}
     </option>
@@ -31,7 +31,7 @@
     <option value="" disabled selected>-- Elige un Arbitro --</option>
 
     <!-- Iteramos sobre 'arbitros' -->
-    <option *ngFor="let arbitroid of arbitros  " [value]="arbitroid._id">
+    <option *ngFor="let arbitroid of arbitros  " [value]="arbitroid.id">
 
       {{ arbitroid.name }}
     </option>

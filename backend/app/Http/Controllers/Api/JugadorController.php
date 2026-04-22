@@ -4,20 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+
 use App\Models\Jugador;
 
-use function Pest\Laravel\json;
+
 
 class JugadorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return Jugador::all();
-    }
-
+public function index()
+{
+    return Jugador::all();
+}
 
 
     /**
@@ -57,9 +58,20 @@ class JugadorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        Jugador::destroy($id);
-        return response()->json(null, 204);
+public function destroy($id)
+{
+    // Buscar el registro primero asegura que el ID sea procesado correctamente
+    $jugador = Jugador::find($id);
+
+    if (!$jugador) {
+        return response()->json(['message' => 'Jugador no encontrado'], 404);
     }
+
+    $jugador->delete();
+
+    return response()->json([
+        'message' => 'Eliminado correctamente'
+    ]);
+}
+
 }

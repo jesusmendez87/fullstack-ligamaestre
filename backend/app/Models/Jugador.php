@@ -22,6 +22,7 @@ class Jugador extends Authenticatable implements JWTSubject
         'posicion',
         'dorsal',
         'club_id',
+        '_id'
     ];
 
 

@@ -5,7 +5,7 @@
   <select title="jugadores" class="form-select"
           [(ngModel)]="jugadorId">
     <option value="" disabled>-- Eliminar Jugador --</option>
-    <option *ngFor="let j of jugadores" [value]="j._id">
+    <option *ngFor="let j of jugadores" [value]="j.id">
       {{ j.name }}
     </option>
   </select>
@@ -20,7 +20,7 @@
   <select title="arbitros" class="form-select"
           [(ngModel)]="arbitroId">
     <option value="" disabled>-- Eliminar Árbitro --</option>
-    <option *ngFor="let a of arbitros" [value]="a._id">
+    <option *ngFor="let a of arbitros" [value]="a.id">
       {{ a.name }}
     </option>
   </select>
@@ -36,7 +36,7 @@
   <select title="equipos" class="form-select"
           [(ngModel)]="equipoId">
     <option value="" disabled>-- Eliminar Equipo --</option>
-    <option *ngFor="let e of equipos" [value]="e._id">
+    <option *ngFor="let e of equipos" [value]="e.id">
       {{ e.name }}
     </option>
   </select>
@@ -47,21 +47,21 @@
     Eliminar Equipo
   </button>
 
-     <label>Partido:</label>
-  <select title="partido" class="form-select"
+
+    <label>Partido:</label>
+  <select title="partidos" class="form-select"
           [(ngModel)]="partidoId">
-    <option value="" disabled>-- Eliminar Equipo --</option>
-    <option *ngFor="let p of partidos" [value]="p._id">
-      {{ p.club_Local_Id}} vs {{ p.club_Visitante_Id }}
+    <option value="" disabled>-- Eliminar Partido --</option>
+    <option *ngFor="let p of partidos" [value]="p.id">
+      {{ p.club_Local_Id }} vs {{ p.club_Visitante_Id }} (Liga {{ p.liga_id }})
     </option>
   </select>
 
   <button class="btn btn-danger mt-2"
           [disabled]="!partidoId"
           (click)="eliminarPartidos(partidoId)">
-    Eliminar Partido
+    Eliminar partido
   </button>
-
 
 </div>
 

@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\Laravel\Eloquent\Model;
-
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
 class Liga extends Model
 {
+    use HasApiTokens, HasFactory, Notifiable;
+
     protected $collection = 'liga';
     protected $connection = 'mongodb';
     protected $fillable = [

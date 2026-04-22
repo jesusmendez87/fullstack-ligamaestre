@@ -19,7 +19,6 @@ import { Ipartido } from '../../core/models/partidos.model';
 })
 export class Delete implements OnInit {
 
-
   jugadores: IUser[] = [];
   arbitros: IUser[] = [];
   equipos: Iequipo[] = [];
@@ -28,7 +27,7 @@ export class Delete implements OnInit {
   jugadorId: string = '';
   arbitroId: string = '';
   equipoId: string = '';
-  partidoId:  any;
+  partidoId:  string = '';
 
   constructor(
     private userService: userService,
@@ -70,17 +69,22 @@ eliminarUsuario(id: string) {
   });
 }
 
-  loadEquipos() {
-    this.verEquipo.getEquipos().subscribe({
-      next: (data) => {
+ loadEquipos() {
+  this.verEquipo.getEquipos().subscribe({
+    next: (data: any) => {
+      // Intentamos obtener el array desde 'data' o desde 'data.data'
+      // El operador Array.isArray verifica si es una lista válida para el *ngFor
+      if (Array.isArray(data)) {
         this.equipos = data;
-      },
-      error: (err) => {
-        console.error('Error al cargar los equipos:', err);
+      } else if (data && Array.isArray(data.data)) {
+        this.equipos = data.data;
+      } else {
+        console.error('La API no devolvió un array:', data);
       }
-    });
-  }
-
+    },
+    error: (err) => console.error('Error al cargar los equipos:', err)
+  });
+}
 
   eliminarEquipo(id: string) {
     this.deleteService.delete('equipos', id).subscribe({
@@ -93,17 +97,22 @@ eliminarUsuario(id: string) {
 
   loadPartidos() {
     this.verPartido.getPartidos().subscribe({
-      next: (data) => {
-        this.partidos = data;
+      next: (data:any) => {
+        if (Array.isArray(data)) {  
+          this.partidos = data;
+        }
+          else if (data && Array.isArray(data.data)) {
+
+          this.partidos = data.data;
+        } else {  
+          console.error('La API no devolvió un array:', data);
+        }
       },
-      error: (err) => {
-        console.error('Error al cargar los equipos:', err);
-      }
+      error: (err) => console.error('Error al cargar los partidos:', err)
     });
-  }  
+  }
 
     eliminarPartidos(id: string) {
-        console.log('ID enviado:', id); // 👈 añade esto
     this.deleteService.delete('partidos', id).subscribe({
       next: () => {
         console.log('Partido eliminado');
@@ -113,3 +122,4 @@ eliminarUsuario(id: string) {
   }
 
  }
+

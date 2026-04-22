@@ -7,8 +7,7 @@ import { VerEquipo } from '../../core/services/verEquipo';
 import { Iequipo } from '../../core/models/equipos.model';
 import { userService } from '../../core/services/ver-usuario';
 import { IUser } from '../../core/models/user.model';
-
-
+import { AuthService } from '../../core/services/auth';
 
 
 @Component({
@@ -45,7 +44,8 @@ export class Competiciones {
     private registerService: NuevoPartido,
     private userService: userService,
     private verEquipo: VerEquipo,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) { }
 
   //necesitamos cargar todos los arbitros y los equipos registrados para utilizarlos en los select
@@ -81,28 +81,32 @@ export class Competiciones {
   }
 
   nuevoPartido() {
-    if (!this.local_id || !this.visitante_id || !this.arbitro_id || !this.lugar || !this.fecha || !this.deporte) {
-      this.errorMessage = 'Rellena todos los campos';
-      return;
-    }
+   if (!this.local_id  || !this.visitante_id || !this.arbitro_id || !this.lugar || !this.fecha || !this.deporte) {
+  this.errorMessage = 'Rellena todos los campos';
+  return;
+}
+
+this.loading = true;
+this.errorMessage = null;
+this.successMessage = null;
+
+if (!this.authService.getCurrentUser()) {
+  this.errorMessage = 'No tienes permiso para crear partidos';
+  this.loading = false;
+  return;
+}
+this.registerService.nuevoPartido(this.local_id, this.visitante_id, this.fecha, this.deporte).subscribe({
+  next: (res) => {
+    this.successMessage = res?.message || 'Partido creado exitosamente';
+    this.loading = false;
+    setTimeout(() => this.router.navigate(['/Competiciones']), 1000);
+  },
+  error: (err) => {
+    this.errorMessage = err?.error?.message || err?.message || 'Error en el registro';
+    this.loading = false;
+  }
+});
 
 
-    this.loading = true;
-    this.errorMessage = null;
-    this.successMessage = null;
-
-
-
-    this.registerService.nuevoPartido(this.local_id, this.visitante_id, this.arbitro_id, this.lugar, this.fecha, this.deporte).subscribe({
-      next: (res) => {
-        this.successMessage = res?.message || 'Partido creado exitosamente';
-        this.loading = false;
-        setTimeout(() => this.router.navigate(['/Competiciones']), 1000);
-      },
-      error: (err) => {
-        this.errorMessage = err?.error?.message || err?.message || 'Error en el registro';
-        this.loading = false;
-      }
-    });
   }
 }

@@ -11,10 +11,12 @@ class PartidoController extends Controller
     /**
      * Display a listing of the resource.
      */
-  public function index(Request $request)
+public function index()
 {
-     $partidos = Partido::all();
-    return response()->json($partidos);
+    return response()->json([
+        'ok' => true,
+        'data' => Partido::all()
+    ]);
 }
 
     public function create()
@@ -28,17 +30,16 @@ class PartidoController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'local_id' => 'required|exists:clubs,id|numeric',
-            'artbitro_id' => 'required|exists:clubs,id|numeric',
-            'liga_id' => 'required|exists:ligas,id|max:10',
+            'local_id' => 'required|exists:clubs,id|string|max:30',
+            'visitante_id' => 'required|exists:clubs,id|string|max:30',
+            'liga_id' => 'nullable|string|max:10',
             'fecha' => 'required|date',
             'resultado' => 'nullable|string|max:10',
         ]);
 
         $partido = Partido::create($validated);
 
-        return redirect()->route('partidos.index')
-                         ->with('success', 'Partido creado correctamente');
+        return response()->json($partido, 201);
     }
 
     /**
@@ -54,7 +55,10 @@ class PartidoController extends Controller
      */
     public function edit(string $id)
     {
-        return view('partido.edit', ['partido' => Partido::findOrFail($id)]);
+        return response()->json([
+            'ok' => true,
+            'data' => Partido::findOrFail($id)
+        ]);
     }
 
     /**

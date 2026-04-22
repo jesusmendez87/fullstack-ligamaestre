@@ -9,8 +9,8 @@ export interface partido {
   _id?: string;
   liga_id: number;
   resultado: string;
-    club_Local_Id: number;
-  club_Visitante_Id: number;
+    club_Local_Id: string;
+  club_Visitante_Id: string;
 }
  export interface IActaEvento {
   jugador: string;   // nombre del jugador

@@ -5,18 +5,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\Laravel\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
 class Partido extends Model
 {
+        use HasApiTokens, HasFactory, Notifiable;
+
     protected $collection = 'partidos';
     protected $connection = 'mongodb';
 
     protected $fillable = [
         'local_id',
         'visitante_id',
-        'liga_id',
-        'arbitro_id',
-        'lugar_id',
+        'liga_id',      
         'fecha',
         'resultado',
     ];

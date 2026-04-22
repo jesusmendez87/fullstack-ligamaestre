@@ -9,6 +9,8 @@
     ],
     "license": "MIT",
     "require": {
+        "mongodb/bson": "^1.0",
+        "mongodb/mongodb": "^1.0",
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",

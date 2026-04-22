@@ -1,8 +1,8 @@
 import { IActaEvento, IResultado } from './../services/verPartido';
 export interface Ipartido {
-  _id?: string;
-  club_Local_Id: number;
-  club_Visitante_Id: number;
+  id?: string;
+  club_Local_Id: string;
+  club_Visitante_Id: string;
   liga_id: number;
   resultado: IResultado;
 

@@ -35,21 +35,29 @@ ngOnInit() {
 }
 
 
- private cargarPartidos( ) {
+private cargarPartidos() {
 
-this.verPartido.getPartidos().subscribe({
-  next: (data: Ipartido[]) => {
-    console.log('Partido cargado:', data);
-    this.partido = data; // backend filtra por rol 
-    console.log('Partidos finales a mostrar:', this.partido);
-    this.loading = false;
-  },
-  error: (err) => {
-    console.error('Error cargando partidos:', err);
-    this.error = 'No se pudieron cargar los partidos';
-    this.loading = false;
-  }
-});
+  this.verPartido.getPartidos().subscribe({
+    next: (res: any) => {
+      const partidos = res.data || [];
+
+      this.partido = partidos.map((p: any) => ({
+        ...p,
+        local_id: p.local_id || p.club_Local_Id,
+        visitante_id: p.visitante_id || p.club_Visitante_Id
+      }));
+
+      console.log('Normalizados:', this.partido);
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error('Error cargando partidos:', err);
+      this.error = 'No se pudieron cargar los partidos';
+      this.loading = false;
+    }
+    
+  });
+
 
 }
 

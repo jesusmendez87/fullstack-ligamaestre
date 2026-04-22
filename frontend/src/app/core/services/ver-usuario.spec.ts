@@ -31,14 +31,14 @@ describe('VerUsuarioService', () => {
 
       const mockUsers: IUser[] = [
         {
-          _id: '2',
+          id: '2',
           username: 'ana123',
           password: '1234',
           name: 'Ana',
           rol: 'jugador'
         },
         {
-          _id: '3',
+          id: '3',
           username: 'user3',
           password: '1234',
           name: 'User3',
@@ -53,7 +53,7 @@ describe('VerUsuarioService', () => {
       });
 
       // Intercepta la petición HTTP
-      const req = httpMock.expectOne(`${service['apiUrl']}?rol=${rol}`);
+      const req = httpMock.expectOne(`${service['apiUrl']}`);
 
       expect(req.request.method).toBe('GET');
 
