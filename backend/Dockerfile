@@ -21,7 +21,7 @@ COPY . .
 
 # Instalar dependencias Laravel
 RUN composer clear-cache
-RUN composer install --no-interaction --prefer-dist
+RUN composer install -vvv --no-interaction --prefer-dist
 
 # Exponer puerto
 EXPOSE 10000
