@@ -20,7 +20,7 @@ WORKDIR /app
 COPY . .
 
 # Instalar dependencias Laravel
-RUN composer install --no-interaction --prefer-dist
+RUN composer install --no-interaction --prefer-dist --no-cache
 
 
 # Exponer puerto
