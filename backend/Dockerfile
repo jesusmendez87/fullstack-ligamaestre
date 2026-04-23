@@ -1,5 +1,5 @@
 # Imagen con PHP
-FROM php:8.4-cli
+FROM php:8.3-cli
 
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     libzip-dev \
     zip \
-    && docker-php-ext-install pdo pdo_mysql
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -20,8 +20,8 @@ WORKDIR /app
 COPY . .
 
 # Instalar dependencias Laravel
-RUN composer install --no-interaction --prefer-dist --no-cache
-
+RUN composer clear-cache
+RUN composer install --no-interaction --prefer-dist
 
 # Exponer puerto
 EXPOSE 10000
