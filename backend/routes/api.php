@@ -16,15 +16,18 @@ use App\Models\Partido;
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 Route::post('jugadores', [JugadorController::class, 'store']);
 
-   Route::post('partido', [PartidoController::class, 'store']);
 
 
 Route::middleware('auth:api')->group(function ()  {
-
-    Route::get('jugadores', [JugadorController::class, 'index']);
+    Route::post('partido', [PartidoController::class, 'store']);
+    Route::get('/jugadores', [JugadorController::class, 'index']);
     Route::get('partidos', [PartidoController::class, 'index']);
     Route::get('ligas', [LigaController::class, 'index']);
     Route::get('equipos', [ClubController::class, 'index']);
+    Route::get('/jugadores/{id}', [JugadorController::class, 'show']);
+    Route::get('partidos/{id}', [PartidoController::class, 'show']);
+    Route::get('ligas/{id}', [LigaController::class, 'show']);
+    Route::get('equipos/{id}', [ClubController::class, 'show']);
     Route::match(['put', 'patch'], 'jugadores/{id}', [JugadorController::class, 'update']);
     Route::match(['put', 'patch'], 'ligas/{id}', [LigaController::class, 'update']);
     Route::match(['put', 'patch'], 'equipos/{id}', [ClubController::class, 'update']);
@@ -33,7 +36,7 @@ Route::middleware('auth:api')->group(function ()  {
     Route::post('equipos', [ClubController::class, 'store']);
 
     Route::delete('/delete/usuarios/{id}', [JugadorController::class, 'destroy']);
-
+    Route::delete('/delete/jugadores/{id}', [JugadorController::class, 'destroy']);
     Route::delete('/delete/ligas/{id}', [LigaController::class, 'destroy']);
     Route::delete('/delete/equipos/{id}', [ClubController::class, 'destroy']);
     Route::delete('/delete/partidos/{id}', [PartidoController::class, 'destroy']);

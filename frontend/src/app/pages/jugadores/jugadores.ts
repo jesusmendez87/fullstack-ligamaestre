@@ -36,7 +36,9 @@ export class Jugadores {
       },
       error: (err) => {
         console.error('Error al cargar los jugadores:', err);
+        this.error = err.message; //
       }
+
     });
 
 

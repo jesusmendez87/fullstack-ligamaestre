@@ -1,10 +1,13 @@
 import { IActaEvento } from './../../core/services/verPartido';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { Jugadores } from './jugadores';
 import { VerPartido } from '../../core/services/verPartido';
 import { userService } from '../../core/services/ver-usuario';
-import { provideHttpClient } from '@angular/common/http';
+
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { fakeAsync, flush } from '@angular/core/testing';
+
 
 describe('Jugadores', () => {
 
@@ -19,12 +22,16 @@ describe('Jugadores', () => {
 
     userServiceMock = {
       getUsersByRole: jasmine.createSpy().and.returnValue(of([
-        { id: '1', name: 'Pedro', rol: 'jugador' }
-      ]))
-    };
+        { id: '1', name: 'Pedro', rol: 'jugador' },
+        { id: '2', name: 'Juan', rol: 'jugador'},
+        { id: '3', name: 'Ana', rol: 'arbitro' }
+      ])),
+        };
+
+
 
     await TestBed.configureTestingModule({
-      imports: [Jugadores],
+      imports: [Jugadores, HttpClientTestingModule],
       providers: [
         { provide: VerPartido, useValue: verPartidoMock },
         { provide: userService, useValue: userServiceMock }
@@ -50,42 +57,43 @@ describe('Jugadores', () => {
 
     fixture.detectChanges();
 
-    expect(component['actas'].length).toBe(2);
-    expect(component['loading']).toBeFalse();
+    expect(component['jugadores'].length).toBe(2);
+
   });
 
   it('Debe contener al jugador Pedro', () => {
   // Setup the mock
-  const mockResponse = [
-    { jugadores: [{ jugador: 'Juan' }, { jugador: 'Pedro' }] }
-  ];
-  userServiceMock.getUsersByRole.and.returnValue(of(mockResponse));
+   userServiceMock.getUsersByRole.and.returnValue(of([
+      { id: '1', name: 'Pedro', rol: 'jugador' },
+      { id: '2', name: 'Juan', rol: 'jugador' }
+    ]));
+
 
   // Initialize
   const fixture = TestBed.createComponent(Jugadores);
   const component = fixture.componentInstance;
   fixture.detectChanges();
- 
-  const hasPedro = component['actas'].some(acta => acta.jugador === 'Po'); 
-  
+
+  const hasPedro = component['jugadores'].some(jugador => jugador.name === 'Juan');
+
   expect(hasPedro).toBeTrue();
 });
 
 
-it('Debe dar error de cabeceras', () => {
 
-  userServiceMock.getUsersByRole.and.returnValue(
-    throwError(() => new Error('Error'))
-  );
+  it('Debe manejar error al cargar jugadores', fakeAsync(() => {
 
-  const fixture = TestBed.createComponent(Jugadores);
-  const component = fixture.componentInstance;
+    userServiceMock.getUsersByRole.and.returnValue(
+      throwError(() => new Error('Error'))
+    );
 
-  fixture.detectChanges();
+    const fixture = TestBed.createComponent(Jugadores);
+    const component = fixture.componentInstance;
 
-  expect(component['error']).toBe('No se pudieron cargar las actas');
-  expect(component['loading']).toBeFalse();
-});
+    fixture.detectChanges();
+    tick();
+expect(component['error']).toBe('Error');
 
+  }));
 
 });
