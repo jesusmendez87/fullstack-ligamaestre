@@ -20,8 +20,6 @@ COPY composer.json composer.lock ./
 RUN COMPOSER_MEMORY_LIMIT=-1 composer install \
     --no-dev \
     --no-interaction \
-    --no-plugins \
-    --no-scripts \
     --prefer-dist
 
 # 5. COPIAR EL RESTO DEL CÓDIGO (Esto es vital antes del dump-autoload)
