@@ -1,30 +1,39 @@
-# Imagen con PHP
 FROM php:8.3-cli
 
-# Instalar dependencias del sistema
+# Dependencias del sistema + MongoDB driver
 RUN apt-get update && apt-get install -y \
-    unzip \
-    git \
-    curl \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install pdo pdo_mysql zip
+    unzip git curl libzip-dev zip \
+    libssl-dev libcurl4-openssl-dev pkg-config \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb \
+    && docker-php-ext-install zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instalar Composer
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Directorio de trabajo
 WORKDIR /app
 
-# Copiar proyecto
+# Copiar composer files
+COPY composer.json composer.lock ./
+
+# Instalar dependencias (incluye mongodb/laravel-mongodb)
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install \
+    --no-dev \
+    --no-scripts \
+    --no-autoloader \
+    --prefer-dist
+
+# Copiar código
 COPY . .
 
-# Instalar dependencias Laravel
-RUN composer clear-cache
-RUN composer install -vvv --no-interaction --prefer-dist
+# Optimizar
+RUN composer dump-autoload --optimize
 
-# Exponer puerto
+# Permisos
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache \
+    && chmod -R 775 /app/storage /app/bootstrap/cache
+
 EXPOSE 10000
 
-# Arrancar Laravel
-CMD php artisan serve --host 0.0.0.0 --port 10000
+CMD php artisan serve --host=0.0.0.0 --port=10000
