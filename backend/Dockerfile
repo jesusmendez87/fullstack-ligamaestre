@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y unzip git curl libzip-dev libssl-dev
 RUN pecl install mongodb
 RUN docker-php-ext-enable mongodb
 RUN docker-php-ext-install zip
+RUN rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -15,13 +16,14 @@ RUN chmod -R 777 storage bootstrap/cache
 
 RUN composer install --ignore-platform-reqs
 
-RUN cp .env.example .env || echo "APP_KEY=" > .env
+RUN cp .env.example .env || true
+RUN php artisan key:generate --force || true
+RUN php artisan jwt:secret --force || true
 
-RUN rm -rf bootstrap/cache/*.php
-RUN rm -rf storage/framework/cache/data/*
-
-RUN php artisan key:generate --force
-RUN php artisan jwt:secret --force
+# ELIMINAR CUALQUIER CACHE
+RUN rm -rf bootstrap/cache/config.php
+RUN rm -rf bootstrap/cache/packages.php
+RUN rm -rf bootstrap/cache/services.php
 
 EXPOSE 10000
-CMD rm -rf bootstrap/cache/*.php && php artisan config:clear && php artisan cache:clear && php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan optimize:clear && php artisan serve --host=0.0.0.0 --port=$PORT
