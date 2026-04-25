@@ -1,9 +1,9 @@
 FROM php:8.3-cli
 
-RUN apt-get update && apt-get install -y unzip git curl libzip-dev libssl-dev && \
-    pecl install mongodb && \
-    docker-php-ext-enable mongodb && \
-    docker-php-ext-install zip
+RUN apt-get update && apt-get install -y unzip git curl libzip-dev libssl-dev
+RUN pecl install mongodb
+RUN docker-php-ext-enable mongodb
+RUN docker-php-ext-install zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -12,11 +12,9 @@ COPY . .
 
 RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache bootstrap/cache
 RUN chmod -R 777 storage bootstrap/cache
+RUN cp .env.example .env || true
 
-RUN composer install --ignore-platform-reqs --no-scripts 2>&1 || true
-RUN composer dump-autoload
-
-RUN cp .env.example .env 2>/dev/null || echo "APP_KEY=" > .env
+RUN composer install --ignore-platform-reqs
 
 EXPOSE 10000
-CMD php artisan config:clear && php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
