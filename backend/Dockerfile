@@ -12,9 +12,12 @@ COPY . .
 
 RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache bootstrap/cache
 RUN chmod -R 777 storage bootstrap/cache
-RUN cp .env.example .env || true
 
 RUN composer install --ignore-platform-reqs
 
+RUN cp .env.example .env || echo "APP_KEY=" > .env
+RUN php artisan key:generate --force
+RUN php artisan jwt:secret --force
+
 EXPOSE 10000
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan config:clear && php artisan serve --host=0.0.0.0 --port=$PORT
