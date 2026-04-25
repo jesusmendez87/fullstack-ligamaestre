@@ -15,7 +15,7 @@ use App\Models\Partido;
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 Route::post('jugadores', [JugadorController::class, 'store']);
-
+Route::get('/login', [AuthController::class, 'login'])->name('api.login');
 
 
 Route::middleware('auth:api')->group(function ()  {
