@@ -24,7 +24,9 @@ class AuthController extends Controller
         }
 
         // 🔍 Buscar usuario SOLO por username
-        $user = Jugador::where('username', $username)->first();
+   $user = Jugador::raw(function($collection) use ($username) {
+    return $collection->findOne(['username' => $username]);
+});
 
         if (!$user) {
             return response()->json([

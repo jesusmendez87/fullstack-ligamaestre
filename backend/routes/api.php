@@ -15,11 +15,27 @@ use App\Models\Partido;
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 Route::post('jugadores', [JugadorController::class, 'store']);
-
 Route::get('/jugadores-test', function() {
     return \App\Models\Jugador::select('_id', 'username', 'rol')->get();
 });
 
+Route::get('/debug-mongo', function() {
+    try {
+        $count = \App\Models\Jugador::count();
+        $sample = \App\Models\Jugador::first();
+
+        return response()->json([
+            'connection' => config('database.default'),
+            'database' => config('database.connections.mongodb.database'),
+            'dsn' => config('database.connections.mongodb.dsn'),
+            'collection' => (new \App\Models\Jugador)->getTable(),
+            'total_jugadores' => $count,
+            'sample' => $sample
+        ]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()]);
+    }
+});
 Route::middleware('auth:api')->group(function ()  {
     Route::post('partido', [PartidoController::class, 'store']);
     Route::get('/jugadores', [JugadorController::class, 'index']);

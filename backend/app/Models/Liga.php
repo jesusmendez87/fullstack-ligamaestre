@@ -11,7 +11,7 @@ class Liga extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $collection = 'liga';
+    protected $collection = 'ligas';
     protected $connection = 'mongodb';
     protected $fillable = [
         'nombre',
