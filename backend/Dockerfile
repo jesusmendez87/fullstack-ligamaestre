@@ -15,8 +15,11 @@ COPY . .
 RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache bootstrap/cache
 RUN chmod -R 777 storage bootstrap/cache
 
-RUN rm -f composer.lock && \
-    composer install --ignore-platform-reqs --no-scripts
+RUN rm -rf vendor composer.lock && \
+    COMPOSER_MEMORY_LIMIT=-1 composer install \
+    --no-dev \
+    --ignore-platform-reqs \
+    --no-scripts
 
 
 RUN cp .env.example .env || true
