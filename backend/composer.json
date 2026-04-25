@@ -14,7 +14,7 @@
         "laravel/tinker": "^2.10.1",
         "mongodb/laravel-mongodb": "5.x-dev",
         "mongodb/mongodb": "^1.19",
-        "php-open-source-saver/jwt-auth": "^3.0"
+        "php-open-source-saver/jwt-auth": "^2.x-dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
