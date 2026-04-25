@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\PartidoController;
 use App\Http\Controllers\Api\ClubController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
- 
+
 
 /********** Rutas públicas **********/
 
@@ -15,7 +15,13 @@ Route::post('/jugadores', [JugadorController::class, 'store']);
 Route::get('/jugadores-test', function() {
     return \App\Models\Jugador::select('_id', 'username', 'rol')->get();
 });
-
+Route::get('/test-versions', function() {
+    return [
+        'php_mongodb_extension' => phpversion('mongodb'),
+        'mongodb_lib' => \MongoDB\Client::class,
+        'laravel_mongodb' => class_exists(\MongoDB\Laravel\Eloquent\Model::class) ? 'installed' : 'missing'
+    ];
+});
 Route::get('/debug-mongo', function() {
     try {
         $count = \App\Models\Jugador::count();
