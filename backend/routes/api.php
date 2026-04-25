@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\PartidoController;
 use App\Http\Controllers\Api\ClubController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Hash;
 
 
 /********** Rutas públicas **********/
@@ -21,6 +24,22 @@ Route::get('/test-versions', function() {
         'mongodb_lib' => \MongoDB\Client::class,
         'laravel_mongodb' => class_exists(\MongoDB\Laravel\Eloquent\Model::class) ? 'installed' : 'missing'
     ];
+});
+Route::post('/test-login', function(Request $request) {
+    $username = $request->input('username');
+    $password = $request->input('password');
+
+    $user = \App\Models\Jugador::where('username', $username)->first();
+
+    if (!$user) {
+        return response()->json(['error' => 'Usuario no existe'], 404);
+    }
+
+    if (!\Hash::check($password, $user->password)) {
+        return response()->json(['error' => 'Password incorrecta'], 401);
+    }
+
+    return response()->json(['success' => true, 'user' => $user->toArray()]);
 });
 Route::get('/debug-mongo', function() {
     try {
