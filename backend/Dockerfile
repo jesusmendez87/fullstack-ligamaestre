@@ -16,8 +16,12 @@ RUN chmod -R 777 storage bootstrap/cache
 RUN composer install --ignore-platform-reqs
 
 RUN cp .env.example .env || echo "APP_KEY=" > .env
+
+RUN rm -rf bootstrap/cache/*.php
+RUN rm -rf storage/framework/cache/data/*
+
 RUN php artisan key:generate --force
 RUN php artisan jwt:secret --force
 
 EXPOSE 10000
-CMD php artisan config:clear && php artisan cache:clear && php artisan serve --host=0.0.0.0 --port=$PORT
+CMD rm -rf bootstrap/cache/*.php && php artisan config:clear && php artisan cache:clear && php artisan serve --host=0.0.0.0 --port=$PORT
