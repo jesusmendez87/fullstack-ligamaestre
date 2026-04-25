@@ -25,22 +25,7 @@ Route::get('/test-versions', function() {
         'laravel_mongodb' => class_exists(\MongoDB\Laravel\Eloquent\Model::class) ? 'installed' : 'missing'
     ];
 });
-Route::post('/test-login', function(Request $request) {
-    $username = $request->input('username');
-    $password = $request->input('password');
 
-    $user = \App\Models\Jugador::where('username', $username)->first();
-
-    if (!$user) {
-        return response()->json(['error' => 'Usuario no existe'], 404);
-    }
-
-    if (!\Hash::check($password, $user->password)) {
-        return response()->json(['error' => 'Password incorrecta'], 401);
-    }
-
-    return response()->json(['success' => true, 'user' => $user->toArray()]);
-});
 Route::get('/debug-mongo', function() {
     try {
         $count = \App\Models\Jugador::count();
@@ -58,7 +43,7 @@ Route::get('/debug-mongo', function() {
         return response()->json(['error' => $e->getMessage()]);
     }
 });
-Route::middleware('auth:api')->group(function ()  {
+Route::middleware('ApiTokenAuth')->group(function ()  {
     Route::post('partido', [PartidoController::class, 'store']);
     Route::get('/jugadores', [JugadorController::class, 'index']);
     Route::get('/partidos', [PartidoController::class, 'index']);
