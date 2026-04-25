@@ -14,7 +14,7 @@ use App\Models\Partido;
 /********** Rutas públicas **********/
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
-Route::post('jugadores', [JugadorController::class, 'store']);
+Route::post('/jugadores', [JugadorController::class, 'store']);
 Route::get('/jugadores-test', function() {
     return \App\Models\Jugador::select('_id', 'username', 'rol')->get();
 });
@@ -39,8 +39,8 @@ Route::get('/debug-mongo', function() {
 Route::middleware('auth:api')->group(function ()  {
     Route::post('partido', [PartidoController::class, 'store']);
     Route::get('/jugadores', [JugadorController::class, 'index']);
-    Route::get('partidos', [PartidoController::class, 'index']);
-    Route::get('ligas', [LigaController::class, 'index']);
+    Route::get('/partidos', [PartidoController::class, 'index']);
+    Route::get('/ligas', [LigaController::class, 'index']);
     Route::get('equipos', [ClubController::class, 'index']);
     Route::get('/jugadores/{id}', [JugadorController::class, 'show']);
     Route::get('partidos/{id}', [PartidoController::class, 'show']);

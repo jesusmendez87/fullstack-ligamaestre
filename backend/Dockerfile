@@ -11,10 +11,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 COPY . .
 
+
 RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache bootstrap/cache
 RUN chmod -R 777 storage bootstrap/cache
 
-RUN composer install --ignore-platform-reqs
+RUN rm -f composer.lock && \
+    composer install --ignore-platform-reqs --no-scripts
+
 
 RUN cp .env.example .env || true
 RUN php artisan key:generate --force || true
