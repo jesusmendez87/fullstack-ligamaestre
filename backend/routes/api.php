@@ -6,10 +6,7 @@ use App\Http\Controllers\Api\PartidoController;
 use App\Http\Controllers\Api\ClubController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
-use Illuminate\Http\Request;
-
-use App\Models\Partido;
-
+ 
 
 /********** Rutas públicas **********/
 

@@ -3,9 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Http\Request;
-
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,24 +12,24 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware) : void {
-    // Añade esta línea:
-    $middleware->api(prepend: [
-        \Illuminate\Http\Middleware\HandleCors::class,
-    ]);
+    ->withMiddleware(function (Middleware $middleware) {
+        // Configuración de CORS para la API
+        $middleware->api(prepend: [
+            \Illuminate\Http\Middleware\HandleCors::class,
+        ]);
 
-    $middleware->alias([
-        'admin' => App\Http\Middleware\AdminMiddleware::class,
-    ]);
-})
-->withExceptions(function (Exceptions $exceptions) {
-    $exceptions->shouldRenderJsonWhen(function ($request, $e) {
-        if ($request->is('api/*')) {
-            return true;
-        }
-        return $request->expectsJson();
-    });
-
-})->create();
-;
-
+        // Alias para tus middlewares personalizados
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        // Forzar respuesta JSON si la ruta empieza por api/
+        // Esto evita el error "Route [login] not defined"
+        $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $e) {
+            if ($request->is('api/*')) {
+                return true;
+            }
+            return $request->expectsJson();
+        });
+    })->create(); // Quitamos el punto y coma extra que tenías abajo
