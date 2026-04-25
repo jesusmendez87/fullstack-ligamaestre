@@ -22,7 +22,8 @@ class Jugador extends Model implements AuthenticatableContract
         'posicion',
         'dorsal',
         'club_id',
-        '_id'
+        'api_token',
+
     ];
 
 
