@@ -15,8 +15,10 @@ use App\Models\Partido;
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 Route::post('jugadores', [JugadorController::class, 'store']);
-Route::get('/login', [AuthController::class, 'login'])->name('api.login');
 
+Route::get('/jugadores-test', function() {
+    return \App\Models\Jugador::select('_id', 'username', 'rol')->get();
+});
 
 Route::middleware('auth:api')->group(function ()  {
     Route::post('partido', [PartidoController::class, 'store']);
