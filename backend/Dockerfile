@@ -20,4 +20,4 @@ RUN php artisan key:generate --force
 RUN php artisan jwt:secret --force
 
 EXPOSE 10000
-CMD php artisan config:clear && php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan config:clear && php artisan cache:clear && php artisan serve --host=0.0.0.0 --port=$PORT
