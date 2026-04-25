@@ -12,7 +12,7 @@ class Jugador extends Authenticatable implements JWTSubject
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $collection = 'jugadors';
+    protected $collection = 'jugadores';
     protected $fillable = [
         'username',
         'password',
