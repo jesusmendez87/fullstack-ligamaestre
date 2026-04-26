@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'hhttps://fullstack-ligamaestre.onrender.com'
+  apiUrl: 'https://fullstack-ligamaestre.onrender.com'
   };
 
