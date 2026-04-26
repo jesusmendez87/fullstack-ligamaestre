@@ -13,8 +13,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: |
-          cd frontend 
+      - name: Install and build
+        working-directory: frontend
+        run: |
           npm install
           npm run build
           npm run test -- --watch=false --browsers=ChromeHeadless
@@ -25,14 +26,27 @@ jobs:
     name: Install and Test Backend
     steps:
       - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      
+      - name: Setup PHP with MongoDB
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: mongodb, zip 
-     
-      - run: |
-          cd backend 
-          composer install
+          extensions: mongodb, zip
+          tools: composer:v2
+      
+      - name: Verify MongoDB extension
+        run: php -m | grep mongodb
+      
+      - name: Install Composer dependencies
+        working-directory: backend
+        run: composer install --no-interaction --prefer-dist
+      
+      - name: Setup Laravel environment
+        working-directory: backend
+        run: |
           cp .env.example .env
           php artisan key:generate
-          php artisan test
+      
+      - name: Run tests
+        working-directory: backend
+        run: php artisan test
