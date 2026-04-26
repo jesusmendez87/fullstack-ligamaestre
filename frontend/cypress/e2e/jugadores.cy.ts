@@ -3,7 +3,8 @@
 describe('Flujo administrador - Jugadores', () => {
   //logueado admin
 beforeEach(() => {
-  cy.visit('https://fullstack-ligamaestre-1.onrender.com/login/');
+  cy.visit('https://fullstack-ligamaestre-qzj4.onrender.com/login');
+
 
   cy.get('input[placeholder="Usuario"]').type('admin');
   cy.get('input[placeholder="Contraseña"]').type('1234');
@@ -13,7 +14,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  cy.visit('https://fullstack-ligamaestre-1.onrender.com/jugadores');
+  cy.visit('https://fullstack-ligamaestre-qzj4.onrender.com/jugadores');
 
   // asegurar que NO te manda a login
   cy.url().should('include', '/jugadores');
@@ -33,7 +34,7 @@ afterEach(() => {
   it('debe crear un jugador correctamente', () => {
     const username = 'JuanTest' + Date.now(); // 🔥 evita duplicados
 
-    cy.visit('https://fullstack-ligamaestre-1.onrender.com/registro');
+    cy.visit('https://fullstack-ligamaestre-qzj4.onrender.com/registro');
 
     cy.get('input[placeholder="Usuario"]').type(username);
     cy.get('input[placeholder="Nombre"]').type('Juan Pérez García');
@@ -52,7 +53,7 @@ afterEach(() => {
   // CASO 3: error controlado (contraseñas distintas)
   it('debe mostrar error si las contraseñas no coinciden', () => {
 
-    cy.visit('https://fullstack-ligamaestre-1.onrender.com/registro');
+    cy.visit('https://fullstack-ligamaestre-qzj4.onrender.com/registro');
 
     cy.get('input[placeholder="Usuario"]').type('ErrorUser');
     cy.get('input[placeholder="Nombre"]').type('Error Test');
