@@ -30,11 +30,7 @@ jobs:
           php-version: '8.3'
           extensions: mongodb, zip 
      
-
-- name: Check PHP extensions
-  run: php -m | grep mongodb  # ← VERIFICA QUE MONGODB ESTÁ INSTALADO
-
-      - run: |
+       - run: |
           cd backend 
           composer install
           cp .env.example .env
