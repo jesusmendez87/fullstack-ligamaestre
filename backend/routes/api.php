@@ -26,6 +26,16 @@ Route::get('/test-versions', function() {
     ];
 });
 
+Route::get('/ultimo-error', function() {
+    $logFile = storage_path('logs/laravel.log');
+    if (file_exists($logFile)) {
+        $lines = file($logFile);
+        $lastLines = array_slice($lines, -50);
+        return response()->json(['log' => implode("\n", $lastLines)]);
+    }
+    return response()->json(['error' => 'No log file']);
+});
+
 Route::get('/debug-mongo', function() {
     try {
         $count = \App\Models\Jugador::count();
