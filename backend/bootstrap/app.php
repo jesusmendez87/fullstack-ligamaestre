@@ -18,10 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\HandleCors::class,
         ]);
 
-        // Alias para tus middlewares personalizados
-        $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        ]);
+  $middleware->alias([
+        'admin' => App\Http\Middleware\AdminMiddleware::class,
+        'api.token' => App\Http\Middleware\ApiTokenAuth::class, //
+            ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Forzar respuesta JSON si la ruta empieza por api/

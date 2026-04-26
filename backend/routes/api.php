@@ -43,7 +43,7 @@ Route::get('/debug-mongo', function() {
         return response()->json(['error' => $e->getMessage()]);
     }
 });
-Route::middleware('ApiTokenAuth')->group(function ()  {
+Route::middleware('api.token')->group(function ()  {
     Route::post('partido', [PartidoController::class, 'store']);
     Route::get('/jugadores', [JugadorController::class, 'index']);
     Route::get('/partidos', [PartidoController::class, 'index']);
