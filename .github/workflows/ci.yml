@@ -29,7 +29,10 @@ jobs:
         with:
           php-version: '8.3'
           extensions: mongodb, zip 
-          ini-values: extension=mongodb.so
+     
+
+- name: Check PHP extensions
+  run: php -m | grep mongodb  # ← VERIFICA QUE MONGODB ESTÁ INSTALADO
 
       - run: |
           cd backend 
