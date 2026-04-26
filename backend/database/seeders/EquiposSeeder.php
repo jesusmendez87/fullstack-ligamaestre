@@ -3,13 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Club;
+use App\Models\Equipo;
 
-class ClubSeeder extends Seeder
+class EquiposSeeder extends Seeder
 {
     public function run(): void
     {
-        Club::insert([
+        Equipo::insert([
             [
                 'name' => 'fp automocion',
                 'city' => 'ciudad real',

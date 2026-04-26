@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\clubes;
+use Database\Seeders\EquiposSeeder;
 use Database\Seeders\ligas;
-use Database\Seeders\jugadores;
+use Database\Seeders\JugadorSeeder;
 use Database\Seeders\partidos;
 
 class DatabaseSeeder extends Seeder
@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-            clubs::class,
+            EquiposSeeder::class,
             ligas::class,
-            jugadors::class,
+            JugadorSeeder::class,
             partidos::class,
         ]);
 

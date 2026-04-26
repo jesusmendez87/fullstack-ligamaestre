@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Club;
+use App\Models\liga;
+use App\Models\Equipo;
 
 class ClubController extends Controller
 {
     // GET /api/clubs
     public function index()
     {
-        return response()->json(Club::all());
+        return response()->json(Equipo::all());
     }
 
     //  POST /api/clubs
@@ -24,7 +25,7 @@ class ClubController extends Controller
             'sport' => 'required|string|max:50',
         ]);
 
-        $club = Club::create($validated);
+        $club = Equipo::create($validated);
 
         return response()->json([
             'message' => 'Club creado correctamente',
@@ -35,13 +36,13 @@ class ClubController extends Controller
     // GET /api/clubs/{id}
     public function show($id)
     {
-        return response()->json(Club::find($id));
+        return response()->json(Equipo::find($id));
     }
 
     // PUT /api/clubs/{id}
     public function update(Request $request, $id)
     {
-        $club = Club::find($id);
+        $club = Equipo::find($id);
 
         $club->update($request->all());
 
@@ -54,7 +55,7 @@ class ClubController extends Controller
     //   DELETE /api/clubs/{id}
     public function destroy($id)
     {
-        Club::destroy($id);
+        Equipo::destroy($id);
 
         return response()->json([
             'message' => 'Club eliminado'

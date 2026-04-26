@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 
-class Club extends Model
+class Equipo extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 

@@ -26,15 +26,6 @@ Route::get('/test-versions', function() {
     ];
 });
 
-Route::get('/ultimo-error', function() {
-    $logFile = storage_path('logs/laravel.log');
-    if (file_exists($logFile)) {
-        $lines = file($logFile);
-        $lastLines = array_slice($lines, -50);
-        return response()->json(['log' => implode("\n", $lastLines)]);
-    }
-    return response()->json(['error' => 'No log file']);
-});
 
 Route::get('/debug-mongo', function() {
     try {
@@ -53,22 +44,25 @@ Route::get('/debug-mongo', function() {
         return response()->json(['error' => $e->getMessage()]);
     }
 });
+
+
+
 Route::middleware('api.token')->group(function ()  {
     Route::post('partido', [PartidoController::class, 'store']);
     Route::get('/jugadores', [JugadorController::class, 'index']);
     Route::get('/partidos', [PartidoController::class, 'index']);
     Route::get('/ligas', [LigaController::class, 'index']);
-    Route::get('equipos', [ClubController::class, 'index']);
+    Route::get('/equipos', [ClubController::class, 'index']);
     Route::get('/jugadores/{id}', [JugadorController::class, 'show']);
-    Route::get('partidos/{id}', [PartidoController::class, 'show']);
-    Route::get('ligas/{id}', [LigaController::class, 'show']);
-    Route::get('equipos/{id}', [ClubController::class, 'show']);
-    Route::match(['put', 'patch'], 'jugadores/{id}', [JugadorController::class, 'update']);
-    Route::match(['put', 'patch'], 'ligas/{id}', [LigaController::class, 'update']);
-    Route::match(['put', 'patch'], 'equipos/{id}', [ClubController::class, 'update']);
-    Route::post('partido', [PartidoController::class, 'store']);
-    Route::post('ligas', [LigaController::class, 'store']);
-    Route::post('equipos', [ClubController::class, 'store']);
+    Route::get('/partidos/{id}', [PartidoController::class, 'show']);
+    Route::get('/ligas/{id}', [LigaController::class, 'show']);
+    Route::get('/equipos/{id}', [ClubController::class, 'show']);
+    Route::match(['put', 'patch'], '/jugadores/{id}', [JugadorController::class, 'update']);
+    Route::match(['put', 'patch'], '/ligas/{id}', [LigaController::class, 'update']);
+    Route::match(['put', 'patch'], '/equipos/{id}', [ClubController::class, 'update']);
+    Route::post('/partido', [PartidoController::class, 'store']);
+    Route::post('/ligas', [LigaController::class, 'store']);
+    Route::post('/equipos', [ClubController::class, 'store']);
 
     Route::delete('/delete/usuarios/{id}', [JugadorController::class, 'destroy']);
     Route::delete('/delete/jugadores/{id}', [JugadorController::class, 'destroy']);
