@@ -2,14 +2,14 @@
 use App\Models\Jugador;
 use App\Models\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use MongoDB\Laravel\Auth\User as AuthUser;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Tests\Unit\JugadorTest;
 
 class ApiJugadorTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_api_responde_correctamente() // Prueba para verificar que la API responde correctamente
     {
