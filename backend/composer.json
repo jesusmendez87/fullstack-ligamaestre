@@ -13,7 +13,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "mongodb/laravel-mongodb": "5.x-dev",
-        "mongodb/mongodb": "^1.19",
+        "mongodb/mongodb": "^1.21",
         "php-open-source-saver/jwt-auth": "^2.0"
     },
     "require-dev": {
