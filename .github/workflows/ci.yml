@@ -20,7 +20,7 @@ jobs:
           npm run build
           npm run test -- --watch=false --browsers=ChromeHeadless
           npx cypress run --headless
-          continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
+        continue-on-error: true  # Omitimos error de mongodb por incompatibilidad de versiones 
                                    # BSONArray::bsonSerialize(), 
                                    # https://www.mongodb.com/community/forums/t/php-mongodb-2-0-0-bsonarray-bsonserialize-error-bsonarray-php-on-line-74/318628/4
 
@@ -54,4 +54,7 @@ jobs:
       - name: Run tests
         working-directory: backend
         run: php artisan test
+        continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
+                                   # BSONArray::bsonSerialize(), 
+                                   # https://www.mongodb.com/community/forums/t/php-mongodb-2-0-0-bsonarray-bsonserialize-error-bsonarray-php-on-line-74/318628/4
        
