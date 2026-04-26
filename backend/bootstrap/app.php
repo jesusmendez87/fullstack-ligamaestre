@@ -14,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         // Configuración de CORS para la API
+   $middleware->api(prepend: [
+        \App\Http\Middleware\Cors::class,  // ← PRIMERO
+    ]);
+
         $middleware->api(prepend: [
             \Illuminate\Http\Middleware\HandleCors::class,
         ]);
