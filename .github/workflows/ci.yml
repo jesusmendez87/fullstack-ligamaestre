@@ -57,19 +57,24 @@ jobs:
       - name: Clear config
         run: php artisan config:clear
         working-directory: backend
-      - name: Debug Mongo
-        run: php -r "var_dump(getenv('MONGO_URI'));"
+
+      - name: Debug env
         working-directory: backend
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: |
+          echo "MONGO_URI=$MONGO_URI"
+          php -r "var_dump(getenv('MONGO_URI'));"
+
+
       - name: Run tests
+        working-directory: backend
         env:
           APP_ENV: testing
           DB_CONNECTION: ${{ vars.DB_CONNECTION }}
           DB_DATABASE: ${{ vars.DB_DATABASE }}
           MONGO_URI: ${{ vars.MONGO_URI }}
           APP_KEY: ${{ vars.APP_KEY }}
-
-
-        working-directory: backend
         run: php artisan test
  #       continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
                                    # BSONArray::bsonSerialize(), 
