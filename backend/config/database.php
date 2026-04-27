@@ -33,8 +33,8 @@ return [
 
     'mongodb' => [
    'driver' => 'mongodb',
-    'dsn' => env('MONGO_URI', 'mongodb+srv://admin:1234@cluster0.79fl8bf.mongodb.net/ligaDeportiva?retryWrites=true&w=majority'),
-    'database' => 'ligaDeportiva',
+    'dsn' => env('MONGO_URI'),
+   'database' => 'ligaDeportiva',
 
 ],
 
