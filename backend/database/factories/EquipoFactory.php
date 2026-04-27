@@ -23,4 +23,6 @@ class EquipoFactory extends Factory
             //
         ];
     }
+
 }
+
