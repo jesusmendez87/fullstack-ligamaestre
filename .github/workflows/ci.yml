@@ -20,7 +20,7 @@ jobs:
           npm run build
           npm run test -- --watch=false --browsers=ChromeHeadless
           npx cypress run --headless
-        continue-on-error: true  # Omitimos error de mongodb por incompatibilidad de versiones 
+ #       continue-on-error: true  # Omitimos error de mongodb por incompatibilidad de versiones 
                                    # BSONArray::bsonSerialize(), 
                                    # https://www.mongodb.com/community/forums/t/php-mongodb-2-0-0-bsonarray-bsonserialize-error-bsonarray-php-on-line-74/318628/4
 
@@ -33,9 +33,10 @@ jobs:
       - name: Setup PHP with MongoDB
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
-          extensions: mongodb, zip
+          php-version: '8.3'
+          extensions: mongodb-1.21.0, zip
           tools: composer:v2
+           
       
       - name: Verify MongoDB extension
         run: php -m | grep mongodb
@@ -54,7 +55,7 @@ jobs:
       - name: Run tests
         working-directory: backend
         run: php artisan test
-        continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
+ #       continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
                                    # BSONArray::bsonSerialize(), 
                                    # https://www.mongodb.com/community/forums/t/php-mongodb-2-0-0-bsonarray-bsonserialize-error-bsonarray-php-on-line-74/318628/4
        
