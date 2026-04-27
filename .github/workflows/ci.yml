@@ -57,7 +57,9 @@ jobs:
       - name: Clear config
         run: php artisan config:clear
         working-directory: backend
-     
+     - name: Debug Mongo
+         run: php -r "var_dump(getenv('MONGO_URI'));"
+         working-directory: backend
       - name: Run tests
         env:
           APP_ENV: testing
