@@ -17,9 +17,9 @@ class EquipoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => fake()->name(),
-            'ciudad' => fake()->city(),
-            'categoria' => fake()->numberBetween(1, 99),
+            'name' => fake()->name(),
+            'city' => fake()->city(),
+            'category' => fake()->numberBetween(1, 99),
             //
         ];
     }
