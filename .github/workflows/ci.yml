@@ -53,13 +53,19 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
-      
+     
       - name: Run tests
         env:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
           APP_KEY: ${{ secrets.APP_KEY }}
+
+     - name: Debug env
+       run: |
+         php -r "var_dump(getenv('MONGO_URI'));"
+         php -r "var_dump(getenv('MONGODB_URI'));"
+
         working-directory: backend
         run: php artisan test
  #       continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 

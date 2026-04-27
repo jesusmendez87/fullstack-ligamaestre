@@ -32,7 +32,7 @@ return [
     'connections' => [
 
     'mongodb' => [
-   'driver' => 'mongodb',
+    'driver' => 'mongodb',
     'dsn' => env('MONGO_URI'),
    'database' => 'ligaDeportiva',
 
