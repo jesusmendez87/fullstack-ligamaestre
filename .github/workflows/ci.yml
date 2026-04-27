@@ -60,7 +60,6 @@ jobs:
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           APP_KEY: ${{ secrets.APP_KEY }}
-          DSN: ${{ secrets.MONGO_URI }}
         working-directory: backend
         run: php artisan test
  #       continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
