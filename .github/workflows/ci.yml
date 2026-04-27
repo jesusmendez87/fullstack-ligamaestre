@@ -61,10 +61,10 @@ jobs:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           APP_KEY: ${{ secrets.APP_KEY }}
 
-     - name: Debug env
-       run: |
-         php -r "var_dump(getenv('MONGO_URI'));"
-         php -r "var_dump(getenv('MONGODB_URI'));"
+      - name: Debug env
+        run: |
+          php -r "var_dump(getenv('MONGO_URI'));"
+          php -r "var_dump(getenv('MONGODB_URI'));"
 
         working-directory: backend
         run: php artisan test
