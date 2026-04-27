@@ -22,7 +22,7 @@ class JugadorFactory extends Factory
                     'nombre' => fake()->name(),
                     'posicion' => fake()->randomElement(['Portero', 'Defensa', 'Centrocampista', 'Delantero']),
                     'dorsal' => fake()->numberBetween(1, 99),
-                    'club_id' => Club::factory(),
+                    'club_id' => EquipoFactory::factory(),
     ];
 
             }
