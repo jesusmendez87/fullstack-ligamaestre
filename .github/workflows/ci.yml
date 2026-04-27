@@ -56,10 +56,10 @@ jobs:
       
       - name: Run tests
         env:
-          DB_CONNECTION: ${{ TEST.DB_CONNECTION }}
-          DB_DATABASE: ${{ TEST.DB_DATABASE }}
-          MONGO_URI: ${{ TEST.MONGO_URI }}
-          APP_KEY: ${{ TEST.APP_KEY }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          APP_KEY: ${{ secrets.APP_KEY }}
         working-directory: backend
         run: php artisan test
  #       continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
