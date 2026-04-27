@@ -71,7 +71,7 @@ jobs:
         working-directory: backend
         env:
           APP_ENV: testing
-          DB_CONNECTION: ${{ vars.DB_CONNECTION }}
+          DB_CONNECTION: mongodb
           DB_DATABASE: ${{ vars.DB_DATABASE }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
           APP_KEY: ${{ secrets.APP_KEY }}
