@@ -60,6 +60,7 @@ jobs:
      
       - name: Run tests
         env:
+          APP_ENV: testing
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
