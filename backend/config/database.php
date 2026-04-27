@@ -32,9 +32,9 @@ return [
     'connections' => [
 
     'mongodb' => [
-   'driver' => 'mongodb',
-    'dsn' => env('MONGO_URI'),
-    'database' => env('DB_DATABASE'),
+    'driver' => 'mongodb',
+    'dsn' => getenv('MONGO_URI'),
+    'database' => getenv('DB_DATABASE'),
 
 ],
 
