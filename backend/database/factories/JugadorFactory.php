@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Club;
+use App\Models\Equipo;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Jugador>
@@ -22,7 +23,7 @@ class JugadorFactory extends Factory
                     'nombre' => fake()->name(),
                     'posicion' => fake()->randomElement(['Portero', 'Defensa', 'Centrocampista', 'Delantero']),
                     'dorsal' => fake()->numberBetween(1, 99),
-                    'name' => EquipoFactory::factory(),
+                    'name' => Equipo::factory(),
     ];
 
             }
