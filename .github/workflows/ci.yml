@@ -15,16 +15,6 @@ jobs:
           node-version: '20'
 
 
-      - name: Create .env.testing
-        run: |
-          cp .env.example .env.testing
-          echo "APP_ENV=testing" >> .env.testing
-          echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env.testing
-          echo "DB_CONNECTION=mysql" >> .env.testing
-          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env.testing
-          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.testing
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env.testing
-
       - name: Install and build
         working-directory: frontend
         run: |
@@ -65,6 +55,11 @@ jobs:
           php artisan key:generate
       
       - name: Run tests
+        env:
+          DB_CONNECTION: ${{ TEST.DB_CONNECTION }}
+          DB_DATABASE: ${{ TEST.DB_DATABASE }}
+          MONGO_URI: ${{ TEST.MONGO_URI }}
+          APP_KEY: ${{ TEST.APP_KEY }}
         working-directory: backend
         run: php artisan test
  #       continue-on-error: true  #Omitimos error de mongodb por incompatibilidad de versiones 
