@@ -28,6 +28,7 @@ jobs:
 
   backend:
     runs-on: ubuntu-latest
+    environment: TEST
     name: Install and Test Backend
     steps:
       - uses: actions/checkout@v4
