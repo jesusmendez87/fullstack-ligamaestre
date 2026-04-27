@@ -63,10 +63,10 @@ jobs:
       - name: Run tests
         env:
           APP_ENV: testing
-          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          APP_KEY: ${{ secrets.APP_KEY }}
+          DB_CONNECTION: ${{ vars.DB_CONNECTION }}
+          DB_DATABASE: ${{ vars.DB_DATABASE }}
+          MONGO_URI: ${{ vars.MONGO_URI }}
+          APP_KEY: ${{ vars.APP_KEY }}
 
 
         working-directory: backend
