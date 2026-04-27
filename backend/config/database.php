@@ -35,7 +35,6 @@ return [
     'driver' => 'mongodb',
     'dsn' => env('MONGO_URI'),
     'database' => 'ligaDeportiva',
-
 ],
 
 

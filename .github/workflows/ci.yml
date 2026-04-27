@@ -32,7 +32,7 @@ jobs:
     name: Install and Test Backend
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup PHP with MongoDB
         uses: shivammathur/setup-php@v2
         with:
