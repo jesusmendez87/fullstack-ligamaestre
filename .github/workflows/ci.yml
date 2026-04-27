@@ -13,6 +13,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+
+      - name: Create .env.testing
+        run: |
+          cp .env.example .env.testing
+          echo "APP_ENV=testing" >> .env.testing
+          echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env.testing
+          echo "DB_CONNECTION=mysql" >> .env.testing
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env.testing
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.testing
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env.testing
+
       - name: Install and build
         working-directory: frontend
         run: |
