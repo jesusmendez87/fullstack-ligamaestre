@@ -58,7 +58,7 @@ jobs:
         env:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          MONGO_URI: ${{ secrets.MONGO_URI }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
           APP_KEY: ${{ secrets.APP_KEY }}
           DSN: ${{ secrets.MONGO_URI }}
         working-directory: backend
