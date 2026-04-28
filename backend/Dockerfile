@@ -29,4 +29,8 @@ RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views sto
 
 EXPOSE 10000
 
-CMD php artisan config:clear && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+# Generar claves en runtime, no en build
+CMD php artisan config:clear && \
+    php artisan key:generate --force && \
+    php artisan jwt:secret --force && \
+    php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
