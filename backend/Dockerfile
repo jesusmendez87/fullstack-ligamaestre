@@ -19,7 +19,7 @@ RUN rm -f composer.lock && \
     --no-interaction \
     --prefer-dist \
     --ignore-platform-reqs
-
+ 
 RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache bootstrap/cache && \
     chmod -R 777 storage bootstrap/cache
 
