@@ -23,9 +23,9 @@ RUN rm -f composer.lock && \
 RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache bootstrap/cache && \
     chmod -R 777 storage bootstrap/cache
 
-RUN cp .env.example .env 2>/dev/null || true
-RUN php artisan key:generate --force 2>/dev/null || true
-RUN php artisan jwt:secret --force 2>/dev/null || true
+#RUN cp .env.example .env 2>/dev/null || true
+#RUN php artisan key:generate --force 2>/dev/null || true
+#RUN php artisan jwt:secret --force 2>/dev/null || true
 
 EXPOSE 10000
 
