@@ -33,8 +33,8 @@ return [
 
     'mongodb' => [
     'driver' => 'mongodb',
-    'dsn' => getenv('MONGO_URI'),
-    'database' => getenv('DB_DATABASE'),
+    'dsn' => env('MONGO_URI'),
+    'database' => env('DB_DATABASE'),
 
 ],
 
