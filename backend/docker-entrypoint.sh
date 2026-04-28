@@ -1,12 +1,10 @@
 #!/bin/bash
 set -e
 
-# Crear .env mínimo si no existe, para que Laravel pueda escribir en él
-if [ ! -f /app/.env ]; then
-    touch /app/.env
-fi
+# Crear .env y volcar todas las variables de entorno de Render en él
+printenv | grep -v "^_\|^HOME\|^PATH\|^HOSTNAME\|^TERM" > /app/.env
 
-# Solo generar claves si no vienen ya del entorno de Render
+# Generar claves solo si no vienen de Render
 if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force
 fi
