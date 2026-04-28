@@ -27,10 +27,9 @@ RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views sto
 #RUN php artisan key:generate --force 2>/dev/null || true
 #RUN php artisan jwt:secret --force 2>/dev/null || true
 
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 10000
 
-# Generar claves en runtime, no en build
-CMD php artisan config:clear && \
-    php artisan key:generate --force && \
-    php artisan jwt:secret --force && \
-    php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+CMD ["docker-entrypoint.sh"]
